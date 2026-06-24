@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organizador de Estudos</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+
+  <div class="app" id="app">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <i class="ti ti-school topbar-icon" aria-hidden="true"></i>
+      <h1 class="topbar-title">Agenda de Estudos</h1>
+      <button class="nav-btn" id="prevBtn" aria-label="Período anterior">
+        <i class="ti ti-chevron-left" aria-hidden="true"></i>
+      </button>
+      <button class="nav-btn" id="nextBtn" aria-label="Próximo período">
+        <i class="ti ti-chevron-right" aria-hidden="true"></i>
+      </button>
+      <button class="today-btn" id="todayBtn">Hoje</button>
+      <span class="period-label" id="periodLabel"></span>
+      <div class="view-tabs" role="tablist">
+        <button class="view-tab active" data-view="week" role="tab">Semana</button>
+        <button class="view-tab" data-view="day" role="tab">Dia</button>
+        <button class="view-tab" data-view="month" role="tab">Mês</button>
+      </div>
+    </div>
+
+    <!-- MAIN CALENDAR AREA -->
+    <div class="main" id="mainArea"></div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="mini-cal" id="miniCal"></div>
+      <div class="todo-section" id="todoSection"></div>
+    </div>
+
+  </div>
+
+  <!-- FAB BUTTON -->
+  <button class="add-fab" id="addFab" aria-label="Adicionar evento">
+    <i class="ti ti-plus" aria-hidden="true"></i>
+  </button>
+
+  <!-- MODAL -->
+  <div class="modal-bg" id="modalBg" role="dialog" aria-modal="true" aria-label="Adicionar evento de estudo">
+    <div class="modal">
+      <h3 class="modal-title">Adicionar estudo</h3>
+
+      <div class="form-row">
+        <label for="fTitle">Título *</label>
+        <input type="text" id="fTitle" placeholder="Ex: Revisão de Álgebra">
+      </div>
+
+      <div class="form-row">
+        <label for="fCat">Categoria</label>
+        <select id="fCat">
+          <option value="matematica">📘 Matemática</option>
+          <option value="portugues">📗 Português</option>
+          <option value="ciencias">🔬 Ciências</option>
+          <option value="historia">🏛️ História</option>
+          <option value="ingles">🌍 Inglês</option>
+          <option value="redacao">✍️ Redação</option>
+          <option value="geral">📌 Geral</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label for="fDate">Data *</label>
+        <input type="date" id="fDate">
+      </div>
+
+      <div class="form-row form-row-grid">
+        <div>
+          <label for="fStart">Início</label>
+          <input type="time" id="fStart" value="08:00">
+        </div>
+        <div>
+          <label for="fEnd">Fim</label>
+          <input type="time" id="fEnd" value="09:00">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label for="fNotes">Notas</label>
+        <textarea id="fNotes" placeholder="Capítulos, páginas, objetivos..."></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-cancel" id="cancelBtn">Cancelar</button>
+        <button class="btn-save" id="saveBtn">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
