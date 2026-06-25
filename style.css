@@ -9,59 +9,43 @@
 
 :root {
   --font: system-ui, -apple-system, sans-serif;
-
-  --bg-primary:   #ffffff;
-  --bg-secondary: #f5f5f4;
-  --bg-tertiary:  #efefed;
-
-  --text-primary:   #1a1a18;
-  --text-secondary: #5f5e5a;
-  --text-tertiary:  #9e9d99;
-
+  --bg-primary:    #ffffff;
+  --bg-secondary:  #f5f5f4;
+  --bg-tertiary:   #efefed;
+  --text-primary:  #1a1a18;
+  --text-secondary:#5f5e5a;
+  --text-tertiary: #9e9d99;
   --border-light:  rgba(0,0,0,0.10);
   --border-medium: rgba(0,0,0,0.18);
-
   --radius-sm: 6px;
   --radius-md: 8px;
   --radius-lg: 12px;
-
   --accent:       #378ADD;
   --accent-dark:  #185FA5;
   --accent-light: #E6F1FB;
-
   --danger:       #E24B4A;
   --danger-light: #FCEBEB;
-
-  /* Category colors */
-  --cat-matematica:       #378ADD;
-  --cat-matematica-light: #E6F1FB;
-  --cat-portugues:        #D4537E;
-  --cat-portugues-light:  #FBEAF0;
-  --cat-ciencias:         #639922;
-  --cat-ciencias-light:   #EAF3DE;
-  --cat-historia:         #BA7517;
-  --cat-historia-light:   #FAEEDA;
-  --cat-ingles:           #7F77DD;
-  --cat-ingles-light:     #EEEDFE;
-  --cat-redacao:          #993C1D;
-  --cat-redacao-light:    #FAECE7;
-  --cat-geral:            #5F5E5A;
-  --cat-geral-light:      #F1EFE8;
+  --topbar-h: 52px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-primary:    #1e1e1c;
-    --bg-secondary:  #2a2a28;
-    --bg-tertiary:   #141412;
-    --text-primary:  #f0efe9;
+    --bg-primary:   #1e1e1c;
+    --bg-secondary: #2a2a28;
+    --bg-tertiary:  #141412;
+    --text-primary: #f0efe9;
     --text-secondary:#b0afa9;
-    --text-tertiary: #707068;
-    --border-light:  rgba(255,255,255,0.09);
-    --border-medium: rgba(255,255,255,0.16);
-    --accent-light:  #0c2a44;
-    --danger-light:  #3a1010;
+    --text-tertiary:#707068;
+    --border-light: rgba(255,255,255,0.09);
+    --border-medium:rgba(255,255,255,0.16);
+    --accent-light: #0c2a44;
+    --danger-light: #3a1010;
   }
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden; /* trava rolagem global */
 }
 
 body {
@@ -69,18 +53,17 @@ body {
   font-size: 14px;
   color: var(--text-primary);
   background: var(--bg-tertiary);
-  height: 100vh;
-  overflow: hidden;
 }
 
 /* ============================================================
-   APP LAYOUT
+   APP LAYOUT — grid fixo, sem overflow externo
    ============================================================ */
 .app {
   display: grid;
   grid-template-columns: 1fr 210px;
-  grid-template-rows: 52px 1fr;
+  grid-template-rows: var(--topbar-h) 1fr;
   height: 100vh;
+  overflow: hidden; /* trava geral */
 }
 
 /* ============================================================
@@ -94,17 +77,16 @@ body {
   padding: 0 16px;
   background: var(--bg-primary);
   border-bottom: 0.5px solid var(--border-light);
+  flex-shrink: 0;
+  overflow: hidden; /* impede topbar de crescer */
 }
 
-.topbar-icon {
-  font-size: 20px;
-  color: var(--accent);
-}
+.topbar-icon { font-size: 20px; color: var(--accent); }
 
 .topbar-title {
   font-size: 16px;
   font-weight: 500;
-  color: var(--text-primary);
+  white-space: nowrap;
 }
 
 .nav-btn {
@@ -118,6 +100,7 @@ body {
   color: var(--text-secondary);
   font-size: 15px;
   transition: background 0.15s;
+  flex-shrink: 0;
 }
 .nav-btn:hover { background: var(--bg-secondary); }
 
@@ -130,6 +113,8 @@ body {
   font-size: 13px;
   color: var(--text-secondary);
   transition: background 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .today-btn:hover { background: var(--bg-secondary); }
 
@@ -138,14 +123,10 @@ body {
   font-weight: 500;
   min-width: 160px;
   text-align: center;
-  color: var(--text-primary);
+  white-space: nowrap;
 }
 
-.view-tabs {
-  display: flex;
-  gap: 2px;
-  margin-left: auto;
-}
+.view-tabs { display: flex; gap: 2px; margin-left: auto; flex-shrink: 0; }
 
 .view-tab {
   padding: 6px 13px;
@@ -156,6 +137,7 @@ body {
   font-size: 13px;
   color: var(--text-secondary);
   transition: all 0.15s;
+  white-space: nowrap;
 }
 .view-tab:hover:not(.active) { background: var(--bg-secondary); }
 .view-tab.active {
@@ -164,23 +146,42 @@ body {
   border-color: var(--accent);
 }
 
+.manage-cats-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border: 0.5px solid var(--border-medium);
+  background: transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.manage-cats-btn:hover { background: var(--bg-secondary); }
+.manage-cats-btn i { font-size: 15px; }
+
 /* ============================================================
-   MAIN CALENDAR AREA
+   MAIN — contém o calendário, altura travada
    ============================================================ */
 .main {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: hidden; /* nada escapa desta célula */
   background: var(--bg-primary);
+  height: 100%; /* ocupa exatamente a linha do grid */
 }
 
-/* ---- WEEK / DAY VIEWS ---- */
+/* ---- Cabeçalho dos dias (semana) ---- */
 .cal-header {
   display: grid;
   grid-template-columns: 48px repeat(7, 1fr);
   border-bottom: 0.5px solid var(--border-light);
   background: var(--bg-primary);
-  flex-shrink: 0;
+  flex-shrink: 0; /* não encolhe */
 }
 
 .cal-header-cell {
@@ -207,15 +208,15 @@ body {
   font-weight: 400;
   margin-top: 3px;
 }
-.day-num.today {
-  background: var(--accent);
-  color: #fff;
-}
+.day-num.today { background: var(--accent); color: #fff; }
 
+/* ---- Corpo rolável — ÚNICO elemento com scroll ---- */
 .cal-body {
-  flex: 1;
-  overflow-y: auto;
+  flex: 1;          /* ocupa todo o espaço restante da .main */
+  overflow-y: auto; /* rola APENAS aqui */
+  overflow-x: hidden;
   position: relative;
+  min-height: 0;    /* necessário para flex funcionar com overflow */
 }
 
 .time-grid {
@@ -239,13 +240,12 @@ body {
   height: 48px;
   border-bottom: 0.5px solid var(--border-light);
   border-right: 0.5px solid var(--border-light);
-  position: relative;
   cursor: pointer;
   transition: background 0.1s;
 }
 .time-slot:hover { background: var(--bg-secondary); }
 
-/* ---- EVENTS ---- */
+/* ---- Eventos ---- */
 .event-block {
   position: absolute;
   left: 2px;
@@ -260,30 +260,15 @@ body {
   border-left: 3px solid rgba(0,0,0,0.18);
   transition: filter 0.1s;
 }
-.event-block:hover { filter: brightness(0.95); }
+.event-block:hover { filter: brightness(0.93); }
+.ev-title { font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ev-time  { opacity: 0.8; font-size: 10px; }
+.event-block.overdue { border-left-color: var(--danger) !important; opacity: 0.88; }
 
-.ev-title {
-  font-weight: 500;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.ev-time {
-  opacity: 0.8;
-  font-size: 10px;
-}
-
-.event-block.overdue {
-  border-left-color: var(--danger) !important;
-  opacity: 0.88;
-}
-
-/* ---- CURRENT TIME LINE ---- */
+/* ---- Linha de hora atual ---- */
 .current-time-line {
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 0; right: 0;
   height: 1.5px;
   background: var(--danger);
   z-index: 3;
@@ -292,32 +277,28 @@ body {
 .current-time-line::before {
   content: '';
   position: absolute;
-  left: 0;
-  top: -4px;
-  width: 9px;
-  height: 9px;
+  left: 0; top: -4px;
+  width: 9px; height: 9px;
   border-radius: 50%;
   background: var(--danger);
 }
 
-/* ---- DAY VIEW HEADER ---- */
+/* ---- Visão diária ---- */
 .day-header {
-  grid-column: 1 / -1;
   padding: 10px 16px;
   border-bottom: 0.5px solid var(--border-light);
   font-size: 18px;
   font-weight: 400;
-  color: var(--text-primary);
+  flex-shrink: 0;
 }
+.day-time-grid { grid-template-columns: 48px 1fr; }
 
-.day-time-grid {
-  grid-template-columns: 48px 1fr;
-}
-
-/* ---- MONTH VIEW ---- */
+/* ---- Visão mensal ---- */
 .month-view {
-  overflow-y: auto;
-  height: 100%;
+  flex: 1;
+  overflow-y: auto;  /* único scroll na visão mensal */
+  overflow-x: hidden;
+  min-height: 0;
 }
 
 .month-header-row {
@@ -328,6 +309,7 @@ body {
   top: 0;
   background: var(--bg-primary);
   z-index: 1;
+  flex-shrink: 0;
 }
 
 .month-header-cell {
@@ -339,10 +321,7 @@ body {
   letter-spacing: 0.5px;
 }
 
-.month-body {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-}
+.month-body { display: grid; grid-template-columns: repeat(7, 1fr); }
 
 .month-cell {
   min-height: 90px;
@@ -355,22 +334,13 @@ body {
 
 .month-cell-num {
   font-size: 12px;
-  width: 22px;
-  height: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 22px; height: 22px;
+  display: flex; align-items: center; justify-content: center;
   border-radius: 50%;
   margin-bottom: 3px;
-  color: var(--text-primary);
 }
-.month-cell-num.today {
-  background: var(--accent);
-  color: #fff;
-}
-.month-cell.other-month .month-cell-num {
-  color: var(--text-tertiary);
-}
+.month-cell-num.today { background: var(--accent); color: #fff; }
+.month-cell.other-month .month-cell-num { color: var(--text-tertiary); }
 
 .month-event {
   font-size: 10px;
@@ -381,32 +351,24 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   cursor: pointer;
-  transition: filter 0.1s;
 }
 .month-event:hover { filter: brightness(0.93); }
-
-.month-more {
-  font-size: 10px;
-  color: var(--text-tertiary);
-  padding: 0 2px;
-}
+.month-more { font-size: 10px; color: var(--text-tertiary); padding: 0 2px; }
 
 /* ============================================================
-   SIDEBAR
+   SIDEBAR — altura travada, scroll interno separado
    ============================================================ */
 .sidebar {
   display: flex;
   flex-direction: column;
   border-left: 0.5px solid var(--border-light);
   background: var(--bg-primary);
-  overflow: hidden;
+  overflow: hidden; /* sidebar não rola junto com o calendário */
+  height: 100%;
 }
 
-/* ---- MINI CALENDAR ---- */
-.mini-cal {
-  padding: 10px 8px 4px;
-  flex-shrink: 0;
-}
+/* ---- Mini calendário ---- */
+.mini-cal { padding: 10px 8px 4px; flex-shrink: 0; }
 
 .mini-cal-header {
   display: flex;
@@ -415,25 +377,15 @@ body {
   margin-bottom: 8px;
   padding: 0 2px;
 }
-
-.mini-cal-header span {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-primary);
-}
+.mini-cal-header span { font-size: 12px; font-weight: 500; }
 
 .mini-nav-btns { display: flex; gap: 2px; }
 
 .mini-btn {
-  border: none;
-  background: none;
-  cursor: pointer;
-  color: var(--text-secondary);
-  padding: 3px 5px;
-  border-radius: 4px;
-  font-size: 13px;
-  display: flex;
-  align-items: center;
+  border: none; background: none;
+  cursor: pointer; color: var(--text-secondary);
+  padding: 3px 5px; border-radius: 4px;
+  font-size: 13px; display: flex; align-items: center;
 }
 .mini-btn:hover { background: var(--bg-secondary); }
 
@@ -444,130 +396,76 @@ body {
 }
 
 .mini-day-name {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  color: var(--text-tertiary);
-  height: 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; color: var(--text-tertiary); height: 20px;
 }
 
 .mini-day {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 22px;
-  width: 22px;
-  margin: auto;
-  font-size: 11px;
-  color: var(--text-secondary);
-  border-radius: 50%;
-  cursor: pointer;
-  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  height: 22px; width: 22px; margin: auto;
+  font-size: 11px; color: var(--text-secondary);
+  border-radius: 50%; cursor: pointer; position: relative;
   transition: background 0.1s;
 }
 .mini-day:hover { background: var(--bg-secondary); }
 .mini-day.today { background: var(--accent); color: #fff; }
 .mini-day.other-month { color: var(--text-tertiary); }
-
 .mini-day.has-event::after {
   content: '';
-  position: absolute;
-  bottom: 2px;
-  left: 50%;
+  position: absolute; bottom: 2px; left: 50%;
   transform: translateX(-50%);
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
+  width: 3px; height: 3px; border-radius: 50%;
   background: var(--accent);
 }
 .mini-day.today.has-event::after { background: #fff; }
 
-/* ---- TODO SECTION ---- */
+/* ---- To-do section ---- */
 .todo-section {
   flex: 1;
-  overflow-y: auto;
+  overflow-y: auto;   /* scroll próprio */
+  overflow-x: hidden;
+  min-height: 0;
   padding: 0 8px 12px;
   border-top: 0.5px solid var(--border-light);
 }
 
 .todo-label {
-  font-size: 10px;
-  font-weight: 500;
+  font-size: 10px; font-weight: 500;
   color: var(--text-tertiary);
   padding: 10px 0 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
+  text-transform: uppercase; letter-spacing: 0.6px;
 }
 
-.todo-empty {
-  font-size: 12px;
-  color: var(--text-tertiary);
-  padding: 4px 0;
-}
+.todo-empty { font-size: 12px; color: var(--text-tertiary); padding: 4px 0; }
 
 .todo-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 6px;
-  padding: 5px 4px;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: background 0.1s;
+  display: flex; align-items: flex-start; gap: 6px;
+  padding: 5px 4px; border-radius: var(--radius-sm);
+  cursor: pointer; transition: background 0.1s;
 }
 .todo-item:hover { background: var(--bg-secondary); }
 
 .todo-item input[type="checkbox"] {
   accent-color: var(--accent);
-  cursor: pointer;
-  width: 13px;
-  height: 13px;
-  flex-shrink: 0;
-  margin-top: 1px;
+  cursor: pointer; width: 13px; height: 13px;
+  flex-shrink: 0; margin-top: 1px;
 }
 
-.todo-text {
-  font-size: 12px;
-  flex: 1;
-  line-height: 1.35;
-  color: var(--text-primary);
-}
-.todo-item.done .todo-text {
-  text-decoration: line-through;
-  color: var(--text-tertiary);
-}
+.todo-text { font-size: 12px; flex: 1; line-height: 1.35; }
+.todo-item.done .todo-text { text-decoration: line-through; color: var(--text-tertiary); }
 
-.todo-cat-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  margin-top: 3px;
-}
+.todo-cat-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
 
-.todo-overdue-tag {
-  font-size: 10px;
-  color: var(--danger);
-  font-weight: 500;
-}
+.todo-overdue-tag { font-size: 10px; color: var(--danger); font-weight: 500; }
 
 .overdue-toggle {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 11px;
-  color: var(--accent);
-  cursor: pointer;
-  padding: 6px 4px 2px;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-  border-top: 0.5px solid var(--border-light);
-  margin-top: 6px;
+  display: flex; align-items: center; gap: 4px;
+  font-size: 11px; color: var(--accent);
+  cursor: pointer; padding: 6px 4px 2px;
+  border: none; background: none; width: 100%; text-align: left;
+  border-top: 0.5px solid var(--border-light); margin-top: 6px;
 }
 .overdue-toggle:hover { text-decoration: underline; }
-
 .overdue-icon { font-size: 12px; color: var(--danger); }
 
 .todo-item.is-overdue {
@@ -575,48 +473,33 @@ body {
   padding-left: 6px;
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
-
-.todo-date-tag {
-  font-size: 10px;
-  color: var(--danger);
-}
+.todo-date-tag { font-size: 10px; color: var(--danger); }
 
 /* ============================================================
    FAB
    ============================================================ */
 .add-fab {
   position: fixed;
-  bottom: 24px;
-  right: 228px;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  background: var(--accent);
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 22px;
+  bottom: 24px; right: 228px;
+  width: 46px; height: 46px; border-radius: 50%;
+  background: var(--accent); border: none;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 22px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.20);
-  z-index: 10;
-  transition: background 0.15s, transform 0.1s;
+  z-index: 10; transition: background 0.15s, transform 0.1s;
 }
 .add-fab:hover { background: var(--accent-dark); }
 .add-fab:active { transform: scale(0.96); }
 
 /* ============================================================
-   MODAL
+   MODAL BASE
    ============================================================ */
 .modal-bg {
   display: none;
-  position: fixed;
-  inset: 0;
+  position: fixed; inset: 0;
   background: rgba(0,0,0,0.35);
   z-index: 100;
-  align-items: center;
-  justify-content: center;
+  align-items: center; justify-content: center;
 }
 .modal-bg.open { display: flex; }
 
@@ -627,89 +510,176 @@ body {
   width: 350px;
   border: 0.5px solid var(--border-light);
   box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  max-height: 90vh;
+  overflow-y: auto;
 }
+
+.modal-wide { width: 420px; }
 
 .modal-title {
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 15px; font-weight: 500;
   margin-bottom: 16px;
-  color: var(--text-primary);
 }
 
-.form-row {
-  margin-bottom: 13px;
-}
+.form-row { margin-bottom: 13px; }
 
 .form-row label {
-  font-size: 12px;
-  color: var(--text-secondary);
-  display: block;
-  margin-bottom: 4px;
+  font-size: 12px; color: var(--text-secondary);
+  display: block; margin-bottom: 4px;
 }
 
 .form-row input,
 .form-row select,
 .form-row textarea {
-  width: 100%;
-  padding: 7px 10px;
+  width: 100%; padding: 7px 10px;
   border: 0.5px solid var(--border-medium);
   border-radius: var(--radius-md);
   background: var(--bg-primary);
   color: var(--text-primary);
-  font-size: 13px;
-  font-family: var(--font);
+  font-size: 13px; font-family: var(--font);
   transition: border-color 0.15s;
 }
-
 .form-row input:focus,
 .form-row select:focus,
-.form-row textarea:focus {
-  outline: none;
-  border-color: var(--accent);
-}
+.form-row textarea:focus { outline: none; border-color: var(--accent); }
+.form-row textarea { resize: vertical; min-height: 62px; }
 
-.form-row textarea {
-  resize: vertical;
-  min-height: 62px;
-}
-
-.form-row-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
+.form-row-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
 .form-actions {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-  margin-top: 6px;
+  display: flex; gap: 8px;
+  justify-content: flex-end; margin-top: 6px;
 }
 
 .btn-cancel {
   padding: 7px 16px;
   border: 0.5px solid var(--border-medium);
-  background: transparent;
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  font-size: 13px;
-  color: var(--text-secondary);
+  background: transparent; border-radius: var(--radius-md);
+  cursor: pointer; font-size: 13px; color: var(--text-secondary);
   transition: background 0.15s;
 }
 .btn-cancel:hover { background: var(--bg-secondary); }
 
 .btn-save {
-  padding: 7px 16px;
-  border: none;
-  background: var(--accent);
-  color: #fff;
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 500;
+  padding: 7px 16px; border: none;
+  background: var(--accent); color: #fff;
+  border-radius: var(--radius-md); cursor: pointer;
+  font-size: 13px; font-weight: 500;
   transition: background 0.15s;
 }
 .btn-save:hover { background: var(--accent-dark); }
+
+/* ============================================================
+   MODAL DE CATEGORIAS
+   ============================================================ */
+.cat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.cat-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: var(--radius-md);
+  border: 0.5px solid var(--border-light);
+  background: var(--bg-secondary);
+}
+
+.cat-item-emoji { font-size: 16px; width: 22px; text-align: center; }
+.cat-item-label { flex: 1; font-size: 13px; font-weight: 500; }
+
+.cat-color-bar {
+  width: 10px; height: 28px;
+  border-radius: 99px;
+  flex-shrink: 0;
+}
+
+.cat-delete-btn {
+  border: none; background: none; cursor: pointer;
+  color: var(--text-tertiary); font-size: 15px;
+  padding: 2px 4px; border-radius: 4px;
+  display: flex; align-items: center;
+  transition: background 0.1s, color 0.1s;
+}
+.cat-delete-btn:hover { background: var(--danger-light); color: var(--danger); }
+.cat-locked { font-size: 11px; color: var(--text-tertiary); padding: 2px 6px; }
+
+.cat-new-form {
+  border-top: 0.5px solid var(--border-light);
+  padding-top: 14px;
+}
+.cat-new-title {
+  font-size: 12px; font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Emoji picker */
+.emoji-picker-area { display: flex; flex-direction: column; gap: 8px; }
+
+.emoji-preview-btn {
+  font-size: 24px;
+  width: 44px; height: 44px;
+  border: 0.5px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.1s;
+}
+.emoji-preview-btn:hover { background: var(--bg-tertiary); }
+.emoji-preview-btn.active { border-color: var(--accent); }
+
+.emoji-grid {
+  display: none;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 8px;
+  border: 0.5px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  max-height: 140px;
+  overflow-y: auto;
+}
+.emoji-grid.open { display: flex; }
+
+.emoji-opt {
+  font-size: 20px;
+  width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.1s;
+  border: none; background: none;
+}
+.emoji-opt:hover { background: var(--bg-primary); }
+.emoji-opt.selected { background: var(--accent-light); outline: 1.5px solid var(--accent); }
+
+/* Swatches de cor */
+.color-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.swatch {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2.5px solid transparent;
+  transition: transform 0.12s, border-color 0.12s;
+}
+.swatch:hover { transform: scale(1.15); }
+.swatch.selected { border-color: var(--text-primary); transform: scale(1.1); }
 
 /* ============================================================
    SCROLLBAR

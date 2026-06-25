@@ -28,6 +28,9 @@
         <button class="view-tab" data-view="day" role="tab">Dia</button>
         <button class="view-tab" data-view="month" role="tab">Mês</button>
       </div>
+      <button class="manage-cats-btn" id="manageCatsBtn" title="Gerenciar categorias">
+        <i class="ti ti-tags" aria-hidden="true"></i> Categorias
+      </button>
     </div>
 
     <!-- MAIN CALENDAR AREA -->
@@ -46,7 +49,7 @@
     <i class="ti ti-plus" aria-hidden="true"></i>
   </button>
 
-  <!-- MODAL -->
+  <!-- MODAL: CRIAR EVENTO -->
   <div class="modal-bg" id="modalBg" role="dialog" aria-modal="true" aria-label="Adicionar evento de estudo">
     <div class="modal">
       <h3 class="modal-title">Adicionar estudo</h3>
@@ -58,15 +61,7 @@
 
       <div class="form-row">
         <label for="fCat">Categoria</label>
-        <select id="fCat">
-          <option value="matematica">📘 Matemática</option>
-          <option value="portugues">📗 Português</option>
-          <option value="ciencias">🔬 Ciências</option>
-          <option value="historia">🏛️ História</option>
-          <option value="ingles">🌍 Inglês</option>
-          <option value="redacao">✍️ Redação</option>
-          <option value="geral">📌 Geral</option>
-        </select>
+        <select id="fCat"></select>
       </div>
 
       <div class="form-row">
@@ -93,6 +88,46 @@
       <div class="form-actions">
         <button class="btn-cancel" id="cancelBtn">Cancelar</button>
         <button class="btn-save" id="saveBtn">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: GERENCIAR CATEGORIAS -->
+  <div class="modal-bg" id="catModalBg" role="dialog" aria-modal="true" aria-label="Gerenciar categorias">
+    <div class="modal modal-wide">
+      <h3 class="modal-title">Categorias</h3>
+
+      <!-- Lista de categorias existentes -->
+      <div id="catList" class="cat-list"></div>
+
+      <!-- Formulário: nova categoria -->
+      <div class="cat-new-form">
+        <div class="cat-new-title">Nova categoria</div>
+
+        <div class="form-row">
+          <label for="cName">Nome *</label>
+          <input type="text" id="cName" placeholder="Ex: Filosofia">
+        </div>
+
+        <!-- Seletor de emoji -->
+        <div class="form-row">
+          <label>Emoji</label>
+          <div class="emoji-picker-area">
+            <button type="button" class="emoji-preview-btn" id="emojiPreviewBtn">🎯</button>
+            <div class="emoji-grid" id="emojiGrid"></div>
+          </div>
+        </div>
+
+        <!-- Seletor de cor -->
+        <div class="form-row">
+          <label>Cor</label>
+          <div class="color-swatches" id="colorSwatches"></div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn-cancel" id="catCancelBtn">Fechar</button>
+          <button class="btn-save" id="catSaveBtn">Adicionar</button>
+        </div>
       </div>
     </div>
   </div>
